@@ -7,6 +7,9 @@
 - [automation/dotnet] Allow null environment variables
   [#6687](https://github.com/pulumi/pulumi/pull/6687)
 
+- [sdk/nodejs] Allow prompt values in `construct` for multi-lang components.
+  [#6522](https://github.com/pulumi/pulumi/pull/6522)
+
 ### Bug Fixes
 
 - [automation/dotnet] Environment variable value type is now nullable.
