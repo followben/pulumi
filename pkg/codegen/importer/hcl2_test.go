@@ -24,6 +24,7 @@ import (
 	"testing"
 
 	"github.com/hashicorp/hcl/v2"
+
 	"github.com/pulumi/pulumi/pkg/v3/codegen/hcl2"
 	"github.com/pulumi/pulumi/pkg/v3/codegen/hcl2/model"
 	"github.com/pulumi/pulumi/pkg/v3/codegen/hcl2/syntax"
