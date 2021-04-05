@@ -13,7 +13,6 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
-
 	"github.com/pulumi/pulumi/pkg/v3/backend"
 	"github.com/pulumi/pulumi/pkg/v3/backend/httpstate/client"
 	"github.com/pulumi/pulumi/pkg/v3/engine"

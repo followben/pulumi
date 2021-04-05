@@ -22,7 +22,6 @@ import (
 	"os"
 
 	"github.com/pkg/errors"
-
 	"github.com/pulumi/pulumi/pkg/v3/backend"
 	"github.com/pulumi/pulumi/pkg/v3/backend/display"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
