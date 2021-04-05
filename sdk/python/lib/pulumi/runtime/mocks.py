@@ -42,23 +42,23 @@ class MockResourceArgs:
     """
     MockResourceArgs is used to construct a newResource Mock
     """
-    type_name: str
+    typ: str
     name: str
     inputs: dict
     provider: str
     resource_id: str
     custom: bool
 
-    def __init__(self, type_name: str, name: str, inputs: dict, provider: str, resource_id: str, custom: bool) -> None:
+    def __init__(self, typ: str, name: str, inputs: dict, provider: str, resource_id: str, custom: bool) -> None:
         """
-        :param str type_name: The token that indicates which resource type is being constructed. This token is of the form "package:module:type".
+        :param str typ: The token that indicates which resource type is being constructed. This token is of the form "package:module:type".
         :param str name: The logical name of the resource instance.
         :param dict inputs: The inputs for the resource.
         :param str provider: The identifier of the provider instance being used to manage this resource.
         :param str resource_id: The physical identifier of an existing resource to read or import.
         :param bool custom: Specifies whether or not the resource is Custom (i.e. managed by a resource provider).
         """
-        self.type_name = type_name
+        self.typ = typ
         self.name = name
         self.inputs = inputs
         self.provider = provider
@@ -163,7 +163,7 @@ class MockMonitor:
 
         state = rpc.deserialize_properties(request.properties)
 
-        resource_args = MockResourceArgs(type_name=request.type,
+        resource_args = MockResourceArgs(typ=request.type,
                                          name=request.name,
                                          inputs=state,
                                          provider=request.provider,
@@ -190,7 +190,7 @@ class MockMonitor:
 
         inputs = rpc.deserialize_properties(request.object)
 
-        resource_args = MockResourceArgs(type_name=request.type,
+        resource_args = MockResourceArgs(typ=request.type,
                                          name=request.name,
                                          inputs=inputs,
                                          provider=request.provider,

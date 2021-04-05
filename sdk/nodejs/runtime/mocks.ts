@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Call } from "@grpc/grpc-js";
 import { deserializeProperties, serializeProperties } from "./rpc";
 import { getProject, getStack, setMockOptions } from "./settings";
 
@@ -128,12 +127,11 @@ export class MockMonitor {
                 return;
             }
 
-            const args: MockCallArgs = {
+            const result = this.mocks.call({
                 token: tok,
                 inputs: inputs,
                 provider: req.getProvider(),
-            };
-            const result = this.mocks.call(args);
+            });
             const response = new provproto.InvokeResponse();
             response.setReturn(structproto.Struct.fromJavaScript(await serializeProperties("", result)));
             callback(null, response);
@@ -144,14 +142,14 @@ export class MockMonitor {
 
     public async readResource(req: any, callback: (err: any, innterResponse: any) => void) {
         try {
-            const args: MockResourceArgs = {
+            const result = this.mocks.newResource({
                 type: req.getType(),
                 name: req.getName(),
                 inputs: deserializeProperties(req.getProperties()),
                 provider: req.getProvider(),
                 custom: req.getCustom(),
-            };
-            const result = this.mocks.newResource(args);
+                id: req.getId(),
+            });
 
             const urn = this.newUrn(req.getParent(), req.getType(), req.getName());
             const serializedState = await serializeProperties("", result.state);
@@ -169,14 +167,14 @@ export class MockMonitor {
 
     public async registerResource(req: any, callback: (err: any, innerResponse: any) => void) {
         try {
-            const args: MockResourceArgs = {
+            const result = this.mocks.newResource({
                 type: req.getType(),
                 name: req.getName(),
-                inputs: deserializeProperties(req.getProperties()),
+                inputs: deserializeProperties(req.getObject()),
                 provider: req.getProvider(),
                 custom: req.getCustom(),
-            };
-            const result = this.mocks.newResource(args);
+                id: req.getImportid(),
+            });
 
             const urn = this.newUrn(req.getParent(), req.getType(), req.getName());
             const serializedState = await serializeProperties("", result.state);

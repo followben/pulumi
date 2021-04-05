@@ -40,13 +40,13 @@ class MyMocks(pulumi.runtime.Mocks):
             return {}
 
     def new_resource(self, args: pulumi.runtime.MockResourceArgs):
-        if args.type_name == 'aws:ec2/securityGroup:SecurityGroup':
+        if args.typ == 'aws:ec2/securityGroup:SecurityGroup':
             state = {
                 'arn': 'arn:aws:ec2:us-west-2:123456789012:security-group/sg-12345678',
                 'name': args.inputs['name'] if 'name' in args.inputs else args.name + '-sg',
             }
             return ['sg-12345678', dict(args.inputs, **state)]
-        elif args.type_name == 'aws:ec2/instance:Instance':
+        elif args.typ == 'aws:ec2/instance:Instance':
             state = {
                 'arn': 'arn:aws:ec2:us-west-2:123456789012:instance/i-1234567890abcdef0',
                 'instanceState': 'running',
@@ -56,7 +56,7 @@ class MyMocks(pulumi.runtime.Mocks):
                 'public_ip': '203.0.113.12',
             }
             return ['i-1234567890abcdef0', dict(args.inputs, **state)]
-        elif args.type_name == 'pkg:index:MyCustom':
+        elif args.typ == 'pkg:index:MyCustom':
             return [args.name + '_id', args.inputs]
         else:
             return ['', {}]
